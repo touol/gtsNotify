@@ -133,7 +133,7 @@ class gtsNotify
                 return $this->load_channel_notify($data);
                 break;
             case 'remove_channel_notify': 
-                return $this->remove_channel_notify($data);
+                return $this->remove_channel_notify_action($data);
                 break;
             case 'send_notify':
                 if(!$this->modx->user->hasSessionContext('mgr')) return $this->error("доступ запрешен!");
@@ -164,12 +164,18 @@ class gtsNotify
         }
         return $resp;
     }
-    public function remove_channel_notify($data)
+    
+    public function remove_channel_notify_action($data)
     {
-        $name = $data['name'];
+        $channel = $data['name'];
         $notify_id = (int)$data['notify_id'];
+        return $this->remove_channel_notify($notify_id,$channel);
+    }
+
+    public function remove_channel_notify($notify_id,$channel)
+    {
         if($notify = $this->modx->getObject('gtsNotifyNotify', $notify_id) 
-            and $channel = $this->modx->getObject('gtsNotifyChannel',['name'=>$name,'active'=>1])){
+            and $channel = $this->modx->getObject('gtsNotifyChannel',['name'=>$channel,'active'=>1])){
             $purposes = $this->modx->getIterator("gtsNotifyNotifyPurpose",[
                 'notify_id'=>$notify_id,
                 'channel_id'=>$channel->id,
@@ -267,7 +273,7 @@ class gtsNotify
             if((int)$g > 0){
                 $ids[(int)$g] = (int)$g;
             }else{
-                $names = $g;
+                $names[] = $g;
             }
         }
         if(!empty($names)){
@@ -328,7 +334,7 @@ class gtsNotify
             if((int)$channel > 0){
                 $channel_ids[(int)$channel] = (int)$channel;
             }else{
-                $channel_names = $channel;
+                $channel_names[] = $channel;
             }
         }
         if(!empty($channel_names)){
@@ -383,7 +389,7 @@ class gtsNotify
             if($user == 0 or (int)$user > 0){
                 $ids[(int)$user] = (int)$user;
             }else{
-                $names = $user;
+                $names[] = $user;
             }
         }
         if(!empty($names)){

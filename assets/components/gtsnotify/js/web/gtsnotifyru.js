@@ -15,7 +15,7 @@
     // обработчик входящих сообщений
     gtsNotifyProvider.socket.onmessage = function(event) {
       var incomingMessage = event.data;
-      console.info('gtsNotifyProvider message',incomingMessage);
+      //console.info('gtsNotifyProvider message',incomingMessage);
       try {
         var json = JSON.parse(incomingMessage);
         //console.info('json',json);
