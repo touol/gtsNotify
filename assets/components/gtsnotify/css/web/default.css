@@ -1,0 +1,12 @@
+.gtsnotify-badge-notify {
+    background: red;
+    position: relative;
+    top: -5px;
+    left: -35px;
+}
+.gtsnotify-channel-btn{
+    font-size: 30px;
+}
+.dropdown-menu {
+    top: 20px !important;
+}
