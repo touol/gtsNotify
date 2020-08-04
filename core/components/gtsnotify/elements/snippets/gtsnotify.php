@@ -4,10 +4,12 @@
 /** @var gtsNotify $gtsNotify */
 $gtsNotify = $modx->getService('gtsNotify', 'gtsNotify', MODX_CORE_PATH . 'components/gtsnotify/model/', $scriptProperties);
 if (!$gtsNotify) {
+    $modx->log(1,"not gtsNotify");
     return;// 'Could not load gtsNotify class!';
 }
 $resp = $gtsNotify->new_client();
 if(!$resp['success']) {
+    $modx->log(1,"not gtsNotify->new_client() ".$resp['message']);
     return;// $resp['message'];
 }
 $gtsNotify->initialize($modx->context->key,$scriptProperties);
