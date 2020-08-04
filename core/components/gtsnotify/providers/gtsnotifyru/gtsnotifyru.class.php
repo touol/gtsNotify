@@ -134,7 +134,7 @@ class gtsNotifyRu
             $resp = $this->send([
                 'type'=>'command',
                 'command'=>'reg_server',
-                'host'=>str_replace(['http://','https://','/',], '',$this->modx->getOption('site_url')),
+                'host'=>$this->provider->host,
                 'secret_key'=>$this->provider->secret_key,
             ]);
             //$this->modx->log(1,"sendNotyfyUsers ".print_r($resp,1));

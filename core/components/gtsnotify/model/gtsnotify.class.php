@@ -50,6 +50,7 @@ class gtsNotify
             
             $this->config['ws_address'] = $provider->ws_address;
             $this->secret_key = $provider->secret_key;
+            $this->config['host'] = $provider->host;
 
             if ($providerClass = $this->modx->loadClass($provider->class, MODX_CORE_PATH . $provider->path, false, true)) {
                 $this->provider = new $providerClass($this->modx, []);
@@ -152,7 +153,11 @@ class gtsNotify
         }else{
             return $this->error("Не удалось получить провайдера!");
         }*/
-        $resp = $this->provider->new_client();
+        if($this->provider){
+            $resp = $this->provider->new_client();
+        }else{
+            return $this->error('new_client no provider');
+        }
         //$this->modx->log(1,"new_client" . print_r($resp));
         if($resp['success']) {
             $this->config['ws_id'] = $resp['data']['ws_id'];
@@ -403,23 +408,26 @@ class gtsNotify
             }
         }
         if(empty($ids)) $this->error("empty user_ids!");
+        $notify_id = 0;
         if($notify = $this->modx->newObject("gtsNotifyNotify")){
             $notify->fromArray([
                 'json'=>json_encode($data),
                 'time'=>date('Y-m-d H:i:s'),
                 'url'=>$url,
             ]);
-            if($save) $notify->save();
+            if($save){
+                if($notify->save()) $notify_id = $notify->id;
+            }
         }
         foreach($channels as &$channel){
             foreach($ids as $user_id){
-                if($notify = $this->modx->newObject("gtsNotifyNotifyPurpose")){
-                    $notify->fromArray([
+                if($notifyPurpose = $this->modx->newObject("gtsNotifyNotifyPurpose")){
+                    $notifyPurpose->fromArray([
                         'notify_id'=>$notify->id,
                         'user_id'=>$user_id,
                         'channel_id'=>$channel['id'],
                     ]);
-                    if($save) $notify->save();
+                    if($save) $notifyPurpose->save();
                 }
                 $channel['user_ids'][$user_id] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                     'active'=>1,
@@ -437,7 +445,9 @@ class gtsNotify
             $channels0[$channel['name']] = $channel;
         }
         
-        return $this->provider->sendNotyfyUsers(array_keys($ids),$channels0, $data, $send_only_channel_count);
+        $resp = $this->provider->sendNotyfyUsers(array_keys($ids),$channels0, $data, $send_only_channel_count);
+        $resp['data']['notify_id'] = $notify_id;
+        return $resp;
     }
     /**
      * @return bool

@@ -1,12 +1,40 @@
 .gtsnotify-badge-notify {
     background: red;
     position: relative;
-    top: -5px;
-    left: -35px;
+    top: -40px;
+    left: -25px;
 }
 .gtsnotify-channel-btn{
-    font-size: 30px;
+    font-size: 36px;
+    border: none;
 }
-.dropdown-menu {
-    top: 20px !important;
+.gtsnotify-channel-btn span{
+    top: -17px;
+}
+
+.gtsnotify-channel-menu {
+    top: 50px;
+    left: inherit;
+}
+.gtsnotify-channel-outer{
+    display: inline-block;
+    width: 36px;
+    vertical-align: top;
+    margin: 16px 0 0 0px;
+}
+.gtsnotify-channel-notify-remove{
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    height: 20px;
+    border: none;
+}
+.gtsnotify-channel-notify-content{
+    display: inline-block;
+    vertical-align: top;
 }

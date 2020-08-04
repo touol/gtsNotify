@@ -41,7 +41,18 @@ return [
             },
             "content": "{$name}"
           },
-          "users": {}
+          "users": {
+            "type": "select",
+            "class": "modUser",
+            "pdoTools": {
+              "class": "modUser",
+              "select": "modUser.id,modUser.username",
+              "sortby": {
+                "modUser.username": "ASC"
+              }
+            },
+            "content": "{$username}"
+          }
         },
         "tabs": {
           "Notify": {
@@ -298,6 +309,18 @@ return [
                   },
                   "path": {
                     "label":"Путь к PHP классу",
+                    "filter": 1
+                  },
+                  "ws_address": {
+                    "label":"Адрес сервера",
+                    "filter": 1
+                  },
+                  "secret_key": {
+                    "label":"secret_key",
+                    "filter": 1
+                  },
+                  "host": {
+                    "label":"Домен сайта",
                     "filter": 1
                   },
                   "description": {

@@ -9,6 +9,7 @@
         
         <field key="ws_address" dbtype="varchar" precision="250" phptype="string" null="false" default=""/>
         <field key="secret_key" dbtype="varchar" precision="250" phptype="string" null="false" default=""/>
+        <field key="host" dbtype="varchar" precision="250" phptype="string" null="false" default=""/>
 
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
 

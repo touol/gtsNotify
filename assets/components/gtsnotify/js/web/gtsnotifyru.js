@@ -9,7 +9,7 @@
     gtsNotifyProvider.socket = new WebSocket(gtsNotifyConfig.ws_address);
     
     gtsNotifyProvider.socket.onopen = function() {
-      gtsNotifyProvider.reg_client('reg_client','hello', location.hostname, gtsNotifyConfig.ws_id);
+      gtsNotifyProvider.reg_client('reg_client','hello', gtsNotifyConfig.host, gtsNotifyConfig.ws_id);
     };
 
     // обработчик входящих сообщений

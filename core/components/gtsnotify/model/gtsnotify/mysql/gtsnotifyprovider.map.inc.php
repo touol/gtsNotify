@@ -16,6 +16,7 @@ $xpdo_meta_map['gtsNotifyProvider']= array (
     'path' => '',
     'ws_address' => '',
     'secret_key' => '',
+    'host' => '',
     'active' => 1,
   ),
   'fieldMeta' => 
@@ -60,6 +61,14 @@ $xpdo_meta_map['gtsNotifyProvider']= array (
       'default' => '',
     ),
     'secret_key' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '250',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
+    'host' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '250',
