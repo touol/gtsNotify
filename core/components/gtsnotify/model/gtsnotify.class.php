@@ -132,7 +132,8 @@ class gtsNotify
             case 'load_channel_notify': 
                 return $this->load_channel_notify($data);
                 break;
-            case 'remove_channel_notify': 
+            case 'remove_channel_notify': //not use
+                if(!$this->modx->user->hasSessionContext('mgr')) return $this->error("доступ запрешен!");
                 return $this->remove_channel_notify_action($data);
                 break;
             case 'send_notify':
@@ -167,19 +168,22 @@ class gtsNotify
     
     public function remove_channel_notify_action($data)
     {
+        //not use
         $channel = $data['name'];
         $notify_id = (int)$data['notify_id'];
         return $this->remove_channel_notify($notify_id,$channel);
     }
 
-    public function remove_channel_notify($notify_id,$channel)
+    public function remove_channel_notify($notify_id,$channel,$user_id = false)
     {
+        if($user_id === false) $user_id = $this->modx->user->id;
+
         if($notify = $this->modx->getObject('gtsNotifyNotify', $notify_id) 
             and $channel = $this->modx->getObject('gtsNotifyChannel',['name'=>$channel,'active'=>1])){
             $purposes = $this->modx->getIterator("gtsNotifyNotifyPurpose",[
                 'notify_id'=>$notify_id,
                 'channel_id'=>$channel->id,
-                'user_id'=>$this->modx->user->id,
+                'user_id'=>$user_id,
                 ]);
             foreach($purposes as $p){
                 $p->remove();
@@ -188,6 +192,17 @@ class gtsNotify
                 'notify_id'=>$notify_id,
                 'channel_id'=>$channel->id,
             ]);
+            
+            $channels = []; $c = $channel->toArray();
+            $c['user_ids'][$user_id] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+                'active'=>1,
+                'channel_id'=>$channel->id,
+                'user_id'=> $user_id,
+            ]);
+            $channels[$channel->name]=$c;
+
+            $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
+            
             if($count_purposes == 0){
                 $notify->remove();
             }
@@ -358,7 +373,7 @@ class gtsNotify
                 }
             }
         }
-        if(empty($channel_ids)) $this->error("empty channel_ids!");
+        if(empty($channel_ids)) return $this->error("empty channel_ids!");
         $default = array(
             'class' => 'gtsNotifyChannel',
             'where' => [
