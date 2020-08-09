@@ -173,7 +173,53 @@ class gtsNotify
         $notify_id = (int)$data['notify_id'];
         return $this->remove_channel_notify($notify_id,$channel);
     }
+    
+    public function remove_channel_notifys($notify_ids,$channel,$user_data = [], $user_id = false)
+    {
+        if($user_id === false) $user_id = $this->modx->user->id;
 
+        if($channel = $this->modx->getObject('gtsNotifyChannel',['name'=>$channel,'active'=>1])){
+            $notifys = $this->modx->getIterator("gtsNotifyNotify",[
+                'id:IN'=>$notify_ids,
+                ]);
+            $purposes = $this->modx->getIterator("gtsNotifyNotifyPurpose",[
+                'notify_id:IN'=>$notify_ids,
+                'channel_id'=>$channel->id,
+                'user_id'=>$user_id,
+                ]);
+            foreach($purposes as $p){
+                $p->remove();
+            }
+            $channels = []; $c = $channel->toArray();
+            $c['user_ids'][$user_id]['channel_count'] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+                'active'=>1,
+                'channel_id'=>$channel->id,
+                'user_id'=> $user_id,
+            ]);
+            if(isset($user_data[$user_id])) $c['user_ids'][$user_id]['user_data'] = $user_data[$user_id];
+            $channels[$channel->name]=$c;
+
+            foreach($notifys as $notify){
+                $count_purposes = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+                    'notify_id'=>$notify->id,
+                    'channel_id'=>$channel->id,
+                ]);
+                if($count_purposes == 0){
+                    $notify->remove();
+                }
+            }
+            $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
+            $count = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+                'active'=>1,
+                'channel_id'=>$channel->id,
+                'user_id'=> $this->modx->user->id,
+            ]);
+            return $this->success('',['count'=>$count]); 
+            
+        }
+        return $this->error("error!");
+        
+    }
     public function remove_channel_notify($notify_id,$channel,$user_id = false)
     {
         if($user_id === false) $user_id = $this->modx->user->id;
@@ -194,7 +240,7 @@ class gtsNotify
             ]);
             
             $channels = []; $c = $channel->toArray();
-            $c['user_ids'][$user_id] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+            $c['user_ids'][$user_id]['channel_count'] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                 'active'=>1,
                 'channel_id'=>$channel->id,
                 'user_id'=> $user_id,
@@ -239,7 +285,7 @@ class gtsNotify
                 //'innerJoin' => $innerJoin,
                 'select' => [
                     'gtsNotifyNotify'=>'*',
-                    //'gtsNotifyNotifyPurpose'=>'gtsNotifyNotifyPurpose.channel_id,gtsNotifyNotifyPurpose.user_id',
+                    'gtsNotifyNotifyPurpose'=>'gtsNotifyNotifyPurpose.url as purpose_url',
                 ],
                 'sortby'=>['gtsNotifyNotify.time'=>'DESC'],
                 'groupby' => 'gtsNotifyNotify.id',
@@ -276,6 +322,19 @@ class gtsNotify
             }
             return $this->sendNotyfyUsers($users,$channels,'#',json_decode($notify->json,1),false,false);
         }
+    }
+    
+    public function create_notify($data = [], $url = '')
+    {
+        if($notify = $this->modx->newObject("gtsNotifyNotify",[
+            'json'=>json_encode($data),
+            'time'=>date('Y-m-d H:i:s'),
+            'url'=>$url,
+        ])){ 
+            $notify->save();
+            return $notify;
+        }
+        return false;
     }
 
     public function sendNotyfyGroups($groups, $channels, $url, $data = array(),$send_only_channel_count = true, $save = true){
@@ -333,7 +392,7 @@ class gtsNotify
                     $users[] = (int)$row['member'];
                 }
             }
-            return $this->sendNotyfyUsers($users, $channels, $url, $data = array(),$send_only_channel_count = true, $save = true);
+            return $this->sendNotyfyUsers($users, $channels, $url, $data, $send_only_channel_count, $save);
         }
         return $this->error('no users');
     }
@@ -450,7 +509,7 @@ class gtsNotify
                     ]);
                     if($save) $notifyPurpose->save();
                 }
-                $channel['user_ids'][$user_id] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
+                $channel['user_ids'][$user_id]['channel_count'] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                     'active'=>1,
                     'channel_id'=>$channel['id'],
                     'user_id'=> $user_id,
@@ -462,7 +521,7 @@ class gtsNotify
         $channels0 = [];
         foreach($channels as $channel){
             $content = $this->pdoTools->getChunk($channel['tpl'], $data);
-            $channel['content'] = '<li><a href="'.$url.'" data-id="'.$row['id'].'">'.$content.'</a></li>';
+            //$channel['content'] = '<li><a href="'.$url.'" data-id="'.$row['id'].'">'.$content.'</a></li>';
             $channels0[$channel['name']] = $channel;
         }
         

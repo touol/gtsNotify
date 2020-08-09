@@ -60,7 +60,8 @@
         <field key="notify_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
         <field key="channel_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
-
+        <field key="url" dbtype="varchar" precision="250" phptype="string" null="false" default=""/>
+        
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="1"/>
 
         <index alias="notify_id" name="notify_id" primary="false" unique="false" type="BTREE">

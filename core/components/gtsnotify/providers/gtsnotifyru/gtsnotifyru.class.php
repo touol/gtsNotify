@@ -89,7 +89,7 @@ class gtsNotifyRu
         return trim($this->modx->getOption('gtsnotify_gtsnotifyru_js'));
     }
     
-    public function generateCode($length = 100){
+    public function generateCode($length = 50){
 		$chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
 		$numChars = strlen($chars);
 		$string = '';
@@ -195,7 +195,7 @@ class gtsNotifyRu
             catch(Exception $e){
                 return $this->error('send '. substr($e->getMessage(),0,10)); 
             }
-            $t = 10000;
+            $t = 1000;
             while($t > 0){
                 try{
                     $t--;

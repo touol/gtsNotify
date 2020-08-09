@@ -1,5 +1,12 @@
 Changelog for gtsNotify.
 
+1.1.0-beta
+==============
+- add gtsNotifyNotify->addPurpose.
+- add gtsNotifyNotify->send.
+- add gtsNotify->remove_channel_notifys.
+- change channel_count for send_notify.
+
 1.0.0-beta
 ==============
 - New build script.

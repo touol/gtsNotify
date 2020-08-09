@@ -220,8 +220,8 @@
                 //console.log('notify',event.detail);
                 for(var key in event.detail.channels) {
                     $badge = $('.gtsnotify-channel[data-name="' + key + '"]').find('.gtsnotify-badge-notify');
-                    $badge.text(event.detail.channels[key].count);
-                    if(event.detail.channels[key].count == 0){
+                    $badge.text(event.detail.channels[key].data.channel_count);
+                    if(event.detail.channels[key].data.channel_count == 0){
                         $badge.hide();
                     }else{
                         $badge.show();

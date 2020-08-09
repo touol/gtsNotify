@@ -1,7 +1,7 @@
 --------------------
 gtsNotify
 --------------------
-Author: Andrey Stepanenko <info@bustep.ru>
+Author: Alexandr Tuniekov <touols@yandex.ru>
 --------------------
 
-A basic Extra for MODx Revolution.
+Пакет для отправки уведомлений пользователю MODX.

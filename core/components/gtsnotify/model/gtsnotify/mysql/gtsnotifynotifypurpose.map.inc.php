@@ -13,6 +13,7 @@ $xpdo_meta_map['gtsNotifyNotifyPurpose']= array (
     'notify_id' => NULL,
     'user_id' => NULL,
     'channel_id' => NULL,
+    'url' => '',
     'active' => 1,
   ),
   'fieldMeta' => 
@@ -40,6 +41,14 @@ $xpdo_meta_map['gtsNotifyNotifyPurpose']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+    ),
+    'url' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '250',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
     ),
     'active' => 
     array (

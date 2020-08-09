@@ -18,9 +18,13 @@
 }
 .gtsnotify-channel-outer{
     display: inline-block;
-    width: 36px;
     vertical-align: top;
     margin: 16px 0 0 0px;
+}
+.gtsnotify-channel {
+    display: inline-block;
+    vertical-align: top;
+    width: 40px;
 }
 .gtsnotify-channel-notify-remove{
     float: right;
