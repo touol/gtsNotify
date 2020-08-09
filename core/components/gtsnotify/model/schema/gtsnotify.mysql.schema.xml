@@ -33,6 +33,10 @@
         
         <field key="sort" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1"/>
 
+        <field key="email_send" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="1"/>
+        <field key="email_tpl" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="email_sleep" dbtype="varchar" precision="10" phptype="string" null="false" default=""/>
+
         <index alias="name" name="name" primary="false" unique="false" type="BTREE">
             <column key="name" length="" collation="A" null="false"/>
         </index>
@@ -44,6 +48,9 @@
         </index>
         <index alias="sort" name="sort" primary="false" unique="false" type="BTREE">
             <column key="sort" length="" collation="A" null="false"/>
+        </index>
+        <index alias="email_send" name="email_send" primary="false" unique="false" type="BTREE">
+            <column key="email_send" length="" collation="A" null="false"/>
         </index>
 
         <composite alias="Purpose" class="gtsNotifyNotifyPurpose" local="id" foreign="channel_id" cardinality="many" owner="local" />
@@ -61,8 +68,10 @@
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
         <field key="channel_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
         <field key="url" dbtype="varchar" precision="250" phptype="string" null="false" default=""/>
-        
+
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="1"/>
+
+        <field key="email_sended" dbtype="tinyint" precision="3" phptype="integer" null="false" default="1"/>
 
         <index alias="notify_id" name="notify_id" primary="false" unique="false" type="BTREE">
             <column key="notify_id" length="" collation="A" null="false"/>
@@ -75,6 +84,9 @@
         </index>
         <index alias="active" name="active" primary="false" unique="false" type="BTREE">
             <column key="active" length="" collation="A" null="false"/>
+        </index>
+        <index alias="email_sended" name="email_sended" primary="false" unique="false" type="BTREE">
+            <column key="email_sended" length="" collation="A" null="false"/>
         </index>
 
         <aggregate alias="Notify" class="gtsNotifyNotify" local="notify_id" foreign="id" cardinality="one" owner="foreign" />

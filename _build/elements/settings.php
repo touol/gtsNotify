@@ -250,6 +250,20 @@ return [
                   "tpl": {
                     "label":"Чанк"
                   },
+                  "email_send": {
+                    "label":"Отправлять по email",
+                      "filter": 1,
+                      "edit": {
+                          "type": "checkbox"
+                      },
+                      "default":0
+                  },
+                  "email_tpl": {
+                    "label":"Чанк email"
+                  },
+                  "email_sleep": {
+                    "label":"Задержка email для того, чтобы юзерам онлайн не приходили письма"
+                  },
                   "active": {
                     "label":"Активно",
                       "filter": 1,

@@ -15,6 +15,7 @@ $xpdo_meta_map['gtsNotifyNotifyPurpose']= array (
     'channel_id' => NULL,
     'url' => '',
     'active' => 1,
+    'email_sended' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -55,6 +56,14 @@ $xpdo_meta_map['gtsNotifyNotifyPurpose']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'boolean',
+      'null' => false,
+      'default' => 1,
+    ),
+    'email_sended' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '3',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 1,
     ),
@@ -118,6 +127,22 @@ $xpdo_meta_map['gtsNotifyNotifyPurpose']= array (
       'columns' => 
       array (
         'active' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'email_sended' => 
+    array (
+      'alias' => 'email_sended',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'email_sended' => 
         array (
           'length' => '',
           'collation' => 'A',

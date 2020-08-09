@@ -18,6 +18,9 @@ $xpdo_meta_map['gtsNotifyChannel']= array (
     'active' => 1,
     'default' => 0,
     'sort' => 1,
+    'email_send' => 1,
+    'email_tpl' => '',
+    'email_sleep' => '',
   ),
   'fieldMeta' => 
   array (
@@ -85,6 +88,30 @@ $xpdo_meta_map['gtsNotifyChannel']= array (
       'null' => true,
       'default' => 1,
     ),
+    'email_send' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 1,
+    ),
+    'email_tpl' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '100',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
+    'email_sleep' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '10',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
   ),
   'indexes' => 
   array (
@@ -145,6 +172,22 @@ $xpdo_meta_map['gtsNotifyChannel']= array (
       'columns' => 
       array (
         'sort' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'email_send' => 
+    array (
+      'alias' => 'email_send',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'email_send' => 
         array (
           'length' => '',
           'collation' => 'A',
