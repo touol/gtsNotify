@@ -20,7 +20,7 @@ $channels0 = array(
 		'gtsNotifyChannel.email_send'=> 1,
 	],
 	'select' => [
-		'gtsNotifyChannel'=>'name, email_tpl, email_sleep'
+		'gtsNotifyChannel'=>'id,name, email_tpl, email_sleep'
 	],
 	'return' => 'data',
 	'limit' => 0,
@@ -55,10 +55,10 @@ foreach($channels as $channel){
 		],
 		'select' => [
 			'gtsNotifyChannel'=>'gtsNotifyChannel.name, gtsNotifyChannel.email_tpl',
-			'gtsNotifyNotify'=>'gtsNotifyNotify.json, gtsNotifyNotify.url',
+			'gtsNotifyNotify'=>'gtsNotifyNotify.json, gtsNotifyNotify.url, gtsNotifyNotify.time',
 			'gtsNotifyNotifyPurpose'=>'gtsNotifyNotifyPurpose.id, gtsNotifyNotifyPurpose.url as purpose_url',
-			'modUser'=>$this->modx->getSelectColumns('modUser','modUser','',array('username')),
-			'modUserProfile'=>$this->modx->getSelectColumns('modUserProfile','modUserProfile','',array(
+			'modUser'=>$modx->getSelectColumns('modUser','modUser','',array('username')),
+			'modUserProfile'=>$modx->getSelectColumns('modUserProfile','modUserProfile','',array(
 				'id','internalKey','blocked','blockeduntil','blockedafter','logincount','thislogin','failedlogincount'
 				,'sessionid'
 				),true),
@@ -69,6 +69,8 @@ foreach($channels as $channel){
 	$pdoTools->setConfig($default, false);
 	$purposes = $pdoTools->run();
 	if(count($purposes) > 0){
+		$mail = $modx->getService('mail', 'mail.modPHPMailer');
+		$mail->setHTML(true);
 		$purpose_ids = [];
 		foreach($purposes as $purpose){
 			$purpose_ids[] = $purpose['id'];
@@ -80,8 +82,7 @@ foreach($channels as $channel){
 		}
 		foreach($purposes as $purpose){
 			$body = $pdoTools->getChunk($channel['email_tpl'],$purpose);
-			$mail = $this->xpdo->getService('mail', 'mail.modPHPMailer');
-			$mail->setHTML(true);
+			
 
 			$mail->set(modMail::MAIL_SUBJECT, 'Вам отправлено сообщение!');
 			$mail->set(modMail::MAIL_BODY, $body);
