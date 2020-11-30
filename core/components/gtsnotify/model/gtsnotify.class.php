@@ -132,8 +132,8 @@ class gtsNotify
             case 'load_channel_notify': 
                 return $this->load_channel_notify($data);
                 break;
-            case 'remove_channel_notify': //not use
-                if(!$this->modx->user->hasSessionContext('mgr')) return $this->error("доступ запрешен!");
+            case 'remove_channel_notify': //use
+                //if(!$this->modx->user->hasSessionContext('mgr')) return $this->error("доступ запрешен!");
                 return $this->remove_channel_notify_action($data);
                 break;
             case 'send_notify':
@@ -159,7 +159,7 @@ class gtsNotify
         }else{
             return $this->error('new_client no provider');
         }
-        //$this->modx->log(1,"new_client" . print_r($resp));
+        
         if($resp['success']) {
             $this->config['ws_id'] = $resp['data']['ws_id'];
         }

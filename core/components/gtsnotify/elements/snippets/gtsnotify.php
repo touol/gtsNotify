@@ -8,6 +8,7 @@ if (!$gtsNotify) {
     return;// 'Could not load gtsNotify class!';
 }
 $resp = $gtsNotify->new_client();
+
 if(!$resp['success']) {
     $modx->log(1,"not gtsNotify->new_client() ".$resp['message']);
     return;// $resp['message'];

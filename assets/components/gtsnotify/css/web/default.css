@@ -1,25 +1,29 @@
 .gtsnotify-badge-notify {
     background: red;
     position: relative;
-    top: -40px;
-    left: -25px;
+    top: -10px;
+    left: -10px;
+    z-index: 10;
 }
 .gtsnotify-channel-btn{
-    font-size: 36px;
-    border: none;
+    /* font-size: 26px;
+    border: none; */
 }
 .gtsnotify-channel-btn span{
-    top: -17px;
+    /* top: 0px; */
+}
+.gtsnotify-channel-notify{
+    padding-right: 50px;
 }
 
 .gtsnotify-channel-menu {
-    top: 50px;
+    /* top: 50px; */
     left: inherit;
 }
 .gtsnotify-channel-outer{
     display: inline-block;
     vertical-align: top;
-    margin: 16px 0 0 0px;
+    /* margin: 16px 0 0 0px; */
 }
 .gtsnotify-channel {
     display: inline-block;

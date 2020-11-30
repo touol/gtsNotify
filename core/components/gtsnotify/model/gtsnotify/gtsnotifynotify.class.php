@@ -97,7 +97,7 @@ class gtsNotifyNotify extends xPDOSimpleObject {
             }
         
         if($provider = $this->xpdo->getObject("gtsNotifyProvider",['active'=>1])){
-            if ($providerClass = $this->xpdo->loadClass($provider->class, xpdo_CORE_PATH . $provider->path, false, true)) {
+            if ($providerClass = $this->xpdo->loadClass($provider->class, MODX_CORE_PATH . $provider->path, false, true)) {
                 $provider = new $providerClass($this->xpdo, []);
             }
         }
