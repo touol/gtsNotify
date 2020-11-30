@@ -29,6 +29,7 @@
         <field key="tpl" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
 
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="1"/>
+        <field key="hidden" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0"/>
         <field key="default" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0"/>
         
         <field key="sort" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1"/>

@@ -1,5 +1,10 @@
 Changelog for gtsNotify.
 
+1.2.0-beta
+==============
+- add hidden channels.
+- Исправлено задвоение числи сообщений. Удаление сообщений.
+
 1.1.0-beta
 ==============
 - add gtsNotifyNotify->addPurpose.

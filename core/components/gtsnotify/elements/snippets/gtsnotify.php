@@ -38,6 +38,7 @@ $default = array(
     'class' => 'gtsNotifyChannel',
     'where' => [
         'active'=>1,
+        'hidden'=>0,
     ],
     //'leftJoin' => $leftJoin,
     //'innerJoin' => $innerJoin,

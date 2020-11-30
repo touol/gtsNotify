@@ -2,7 +2,7 @@
 
 return [
     'gtsnotify' => [
-        'description' => 'Уведомления',
+        'text' => 'gtsNotify',
         'action' => 'home',
         'namespace' => 'gettables',
         'params' => '&config=gtsnotify_notify',
@@ -10,8 +10,8 @@ return [
         //'icon' => '<i class="icon icon-large icon-modx"></i>',
     ],
     'gtsnotify_setting' => [
-        'description' => 'Настройки уведомлений',
-        'parent'=> 'gtsnotify',
+        'text' => 'Настройки',
+        'parent'=> 'gtsNotify',
         'action' => 'home',
         'namespace' => 'gettables',
         'params' => '&config=gtsnotify_setting',

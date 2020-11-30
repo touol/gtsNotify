@@ -272,8 +272,8 @@ return [
                       },
                       "default":1
                   },
-                  "default": {
-                    "label":"По умолчанию",
+                  "hidden": {
+                    "label":"Скрытый",
                       "filter": 1,
                       "edit": {
                           "type": "checkbox"

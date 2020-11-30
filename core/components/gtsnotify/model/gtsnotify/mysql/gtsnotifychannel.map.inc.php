@@ -16,6 +16,7 @@ $xpdo_meta_map['gtsNotifyChannel']= array (
     'icon_empty' => '',
     'tpl' => '',
     'active' => 1,
+    'hidden' => 0,
     'default' => 0,
     'sort' => 1,
     'email_send' => 1,
@@ -70,6 +71,14 @@ $xpdo_meta_map['gtsNotifyChannel']= array (
       'phptype' => 'boolean',
       'null' => false,
       'default' => 1,
+    ),
+    'hidden' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 0,
     ),
     'default' => 
     array (
