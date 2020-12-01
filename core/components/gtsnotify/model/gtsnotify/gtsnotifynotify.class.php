@@ -119,6 +119,8 @@ class gtsNotifyNotify extends xPDOSimpleObject {
     {
         if (!$pdoTools = $this->xpdo->getService('pdoFetch')) $this->error("empty pdoTools!");
         $data = json_decode($this->json,1);
+        $data['notify_id'] = $this->id;
+
         $Purposes = $this->xpdo->getIterator('gtsNotifyNotifyPurpose',['notify_id'=>$this->id]);
         $users = []; $channel_ids = [];
         foreach($Purposes as $p){

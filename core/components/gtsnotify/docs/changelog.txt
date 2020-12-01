@@ -1,5 +1,9 @@
 Changelog for gtsNotify.
 
+1.2.2-beta
+==============
+- add send notify_id.
+
 1.2.1-beta
 ==============
 - add method addPurposeGroups.
