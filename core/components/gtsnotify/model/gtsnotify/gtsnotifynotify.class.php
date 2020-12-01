@@ -50,9 +50,71 @@ class gtsNotifyNotify extends xPDOSimpleObject {
                 $notifyPurpose->save();
             }
         }
-        return $this->success();;
+        return $this->success();
     }
     
+    public function addPurposeGroups($groups,$channels,$url = '')
+    {
+        $pdoTools = $this->xpdo->getService('pdoFetch');
+        if(is_string($groups) or (int)$groups > 0) $groups = explode(',',$groups);
+        if(!is_array($groups) or empty($groups)) $this->error("empty groups!");
+        $ids = []; $names = [];
+        foreach($groups as $g){
+            $g = trim($g);
+            if((int)$g > 0){
+                $ids[(int)$g] = (int)$g;
+            }else{
+                $names[] = $g;
+            }
+        }
+        if(!empty($names)){
+            $default = array(
+                'class' => 'modUserGroup',
+                'where' => [
+                    'name:IN'=> $names,
+                ],
+                'select' => [
+                    'modUserGroup'=>'id'
+                ],
+                'return' => 'data',
+                'limit' => 0,
+            );
+            
+            $pdoTools->setConfig($default, false);
+            $rows = $pdoTools->run();
+            if(count($rows) > 0){
+                foreach($rows as $row){
+                    $ids[(int)$row['id']] = (int)$row['id'];
+                }
+            }
+        }
+        if(!empty($ids)){
+            $default = array(
+                'class' => 'modUserGroupMember',
+                'where' => [
+                    'user_group:IN'=> $ids,
+                ],
+                'select' => [
+                    'modUserGroupMember'=>'member'
+                ],
+                'groupby'=>'member',
+                'return' => 'data',
+                'limit' => 0,
+            );
+            
+            $pdoTools->setConfig($default, false);
+            $rows = $pdoTools->run();
+            $this->xpdo->log(1,"addPurposeGroups ".print_r($rows,1));
+            if(count($rows) > 0){
+                foreach($rows as $row){
+                    $this->addPurpose((int)$row['member'], $channels, $url);
+                }
+                return $this->success();
+            }  
+        }
+        return $this->error('no users');
+    }
+
     public function send($user_data = [], $send_only_channel_count = false)
     {
         if (!$pdoTools = $this->xpdo->getService('pdoFetch')) $this->error("empty pdoTools!");

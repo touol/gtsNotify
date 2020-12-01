@@ -339,8 +339,8 @@ class gtsNotify
 
     public function sendNotyfyGroups($groups, $channels, $url, $data = array(),$send_only_channel_count = true, $save = true){
         
-        if(is_string($groups) or (int)$groups > 0) $groups = explode(',',$users);
-        if(!is_array($groups) or empty($groups)) $this->error("empty users!");
+        if(is_string($groups) or (int)$groups > 0) $groups = explode(',',$groups);
+        if(!is_array($groups) or empty($groups)) $this->error("empty groups!");
         $ids = []; $names = [];
         foreach($groups as $g){
             $g = trim($g);

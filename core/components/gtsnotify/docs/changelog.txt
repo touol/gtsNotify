@@ -1,5 +1,9 @@
 Changelog for gtsNotify.
 
+1.2.1-beta
+==============
+- add method addPurposeGroups.
+
 1.2.0-beta
 ==============
 - add hidden channels.

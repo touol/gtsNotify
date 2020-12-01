@@ -11,7 +11,7 @@ if (!defined('MODX_CORE_PATH')) {
 return [
     'name' => 'gtsNotify',
     'name_lower' => 'gtsnotify',
-    'version' => '1.2.0',
+    'version' => '1.2.1',
     'release' => 'beta',
     // Install package to site right after build
     'install' => true,
