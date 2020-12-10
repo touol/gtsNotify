@@ -104,7 +104,7 @@ class gtsNotifyNotify extends xPDOSimpleObject {
             
             $pdoTools->setConfig($default, false);
             $rows = $pdoTools->run();
-            $this->xpdo->log(1,"addPurposeGroups ".print_r($rows,1));
+            //$this->xpdo->log(1,"addPurposeGroups ".print_r($rows,1));
             if(count($rows) > 0){
                 foreach($rows as $row){
                     $this->addPurpose((int)$row['member'], $channels, $url);
