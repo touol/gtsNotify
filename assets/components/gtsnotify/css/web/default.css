@@ -12,13 +12,11 @@
 .gtsnotify-channel-btn span{
     /* top: 0px; */
 }
-.gtsnotify-channel-notify{
-    padding-right: 50px;
-}
+
 
 .gtsnotify-channel-menu {
     /* top: 50px; */
-    left: inherit;
+    /* left: inherit; */
 }
 .gtsnotify-channel-outer{
     display: inline-block;

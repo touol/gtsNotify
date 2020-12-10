@@ -7,7 +7,7 @@
             <span class="badge gtsnotify-badge-notify" {if $count == 0}style="display:none;"{/if}>{$count}</span>
         </div>
     </div>
-        <ul class="dropdown-menu gtsnotify-channel-menu" role="menu">
+        <ul class="dropdown-menu gtsnotify-channel-menu  dropdown-menu-right" role="menu">
             
         </ul>
 </div>
