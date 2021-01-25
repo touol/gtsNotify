@@ -104,6 +104,7 @@ if ($transport->xpdo) {
     }
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
+            $modx->addPackage('gtsnotify', MODX_CORE_PATH . 'components/gtsnotify/model/');
             if($provider = $modx->newObject("gtsNotifyProvider")){
                 $provider->fromArray([
                     'name'=>'gtsNotifyRu',
