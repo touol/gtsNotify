@@ -1,0 +1,46 @@
+.gtsnotify-badge-notify {
+    background: red;
+    position: relative;
+    top: -40px;
+    left: 30px;
+    z-index: 10;
+}
+.gtsnotify-channel-btn{
+    /* font-size: 26px;
+    border: none; */
+}
+.gtsnotify-channel-btn span{
+    /* top: 0px; */
+}
+
+
+.gtsnotify-channel-menu {
+    /* top: 50px; */
+    /* left: inherit; */
+}
+.gtsnotify-channel-outer{
+    display: inline-block;
+    vertical-align: top;
+    /* margin: 16px 0 0 0px; */
+}
+.gtsnotify-channel {
+    display: inline-block;
+    vertical-align: top;
+    width: 40px;
+}
+.gtsnotify-channel-notify-remove{
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    height: 20px;
+    border: none;
+}
+.gtsnotify-channel-notify-content{
+    display: inline-block;
+    vertical-align: top;
+}
