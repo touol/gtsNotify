@@ -92,7 +92,7 @@ foreach($channels as $channel){
 
 			$mail->address('to', $purpose['email']);
 			if (!$mail->send()) {
-				$modx->log(xPDO::LOG_LEVEL_ERROR, 'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo);
+				$modx->log(1, 'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo);
 			}
 			$mail->reset();
 		}
