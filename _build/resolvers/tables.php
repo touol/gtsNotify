@@ -110,8 +110,8 @@ if ($transport->xpdo) {
                     'description'=>'',
                     'class'=>'gtsNotifyRu',
                     'path'=>'components/gtsnotify/providers/gtsnotifyru/',
-                    'ws_address'=>'ws://localhost:8081',
-                    'secret_key'=>'345354543hjvckgyilkvuklku',
+                    'ws_address'=>'wss://wss.gtsnotify.ru:8081',
+                    'secret_key'=>'',
                     'active'=>false,
                 ]);
                 $provider->save();
