@@ -109,14 +109,15 @@ class gtsNotify
 
                         }
                     }
-                    if ($js = $this->provider->getJS()) {
+                    if($this->provider){
+                        if ($js = $this->provider->getJS()) {
 
-                        if (!empty($js) && preg_match('/\.js/i', $js)) {
-                            $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+                            if (!empty($js) && preg_match('/\.js/i', $js)) {
+                                $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
 
+                            }
                         }
                     }
-                    
 
                 }
 
@@ -208,7 +209,9 @@ class gtsNotify
                     $notify->remove();
                 }
             }
-            $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
+            if($this->provider){
+                $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
+            }
             $count = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                 'active'=>1,
                 'channel_id'=>$channel->id,
@@ -246,9 +249,9 @@ class gtsNotify
                 'user_id'=> $user_id,
             ]);
             $channels[$channel->name]=$c;
-
-            $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
-            
+            if($this->provider){
+                $resp = $this->provider->sendNotyfyUsers([$user_id],$channels, [], true);
+            }
             if($count_purposes == 0){
                 $notify->remove();
             }
@@ -524,10 +527,13 @@ class gtsNotify
             //$channel['content'] = '<li><a href="'.$url.'" data-id="'.$row['id'].'">'.$content.'</a></li>';
             $channels0[$channel['name']] = $channel;
         }
-        
-        $resp = $this->provider->sendNotyfyUsers(array_keys($ids),$channels0, $data, $send_only_channel_count);
-        $resp['data']['notify_id'] = $notify_id;
-        return $resp;
+        if($this->provider){
+            $resp = $this->provider->sendNotyfyUsers(array_keys($ids),$channels0, $data, $send_only_channel_count);
+            $resp['data']['notify_id'] = $notify_id;
+            return $resp;
+        }else{
+            return $this->error('no provider');
+        }
     }
     /**
      * @return bool
