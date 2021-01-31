@@ -68,7 +68,7 @@ class gtsNotifyHomeManagerController extends modExtraManagerController
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
         $this->gtsNotify->config['date_format'] = $this->modx->getOption('gtsnotify_date_format', null, '%d.%m.%y <span class="gray">%H:%M</span>');
-        $this->gtsNotify->config['help_buttons'] = ($buttons = $this->getButtons()) ? $buttons : '';
+        //$this->gtsNotify->config['help_buttons'] = ($buttons = $this->getButtons()) ? $buttons : '';
 
         $this->addHtml('<script type="text/javascript">
         gtsNotify.config = ' . json_encode($this->gtsNotify->config) . ';

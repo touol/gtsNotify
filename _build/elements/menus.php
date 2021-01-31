@@ -18,7 +18,7 @@ return [
     //     //&config=test_gts
     //     //'icon' => '<i class="icon icon-large icon-modx"></i>',
     // ],
-    'gtsnotify' => [
+    'gtsnotify_extjs' => [
         'description' => 'gtsnotify_menu_desc',
         'action' => 'home',
         //'icon' => '<i class="icon icon-large icon-modx"></i>',

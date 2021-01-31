@@ -109,44 +109,8 @@ Ext.extend(gtsNotify.grid.Providers, gtsNotify.grid.Default, {
             text: '<i class="icon icon-plus"></i>&nbsp;' + _('gtsnotify_item_create'),
             handler: this.createItem,
             scope: this
-        },{
-            xtype: 'gtsnotify-combo-filter-active',
-            name: 'active',
-            width: 210,
-            custm: true,
-            clear: true,
-            addall: true,
-            value: '',
-            listeners: {
-                select: {
-                    fn: this._filterByCombo,
-                    scope: this
-                },
-                afterrender: {
-                    fn: this._filterByCombo,
-                    scope: this
-                }
-            }
-        },{
-            xtype: 'gtsnotify-combo-filter-resource',
-            name: 'resource',
-            width: 210,
-            custm: true,
-            clear: true,
-            addall: true,
-            value: '',
-            listeners: {
-                select: {
-                    fn: this._filterByCombo,
-                    scope: this
-                },
-                afterrender: {
-                    fn: this._filterByCombo,
-                    scope: this
-                }
-            }
-        },
-            '->', this.getSearchField()];
+        
+        }];
     },
 
     getListeners: function () {
@@ -215,13 +179,73 @@ Ext.extend(gtsNotify.grid.Providers, gtsNotify.grid.Default, {
     },
 
     removeItem: function () {
-        this.action('remove')
+        var ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.msg.confirm({
+            title: ids.length > 1
+                ? _('gtsnotify_items_remove')
+                : _('gtsnotify_item_remove'),
+            text: ids.length > 1
+                ? _('gtsnotify_items_remove_confirm')
+                : _('gtsnotify_item_remove_confirm'),
+            url: this.config.url,
+            params: {
+                action: 'mgr/provider/remove',
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        this.refresh();
+                    }, scope: this
+                }
+            }
+        });
+        return true;
     },
+
     disableItem: function () {
-        this.action('disable')
+        var ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/provider/disable',
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        this.refresh();
+                    }, scope: this
+                }
+            }
+        })
     },
+
     enableItem: function () {
-        this.action('enable')
+        var ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/provider/enable',
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        this.refresh();
+                    }, scope: this
+                }
+            }
+        })
     },
 });
 Ext.reg('gtsnotify-grid-providers', gtsNotify.grid.Providers);

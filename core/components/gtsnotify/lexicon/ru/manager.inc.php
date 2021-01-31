@@ -2,6 +2,8 @@
 include_once 'setting.inc.php';
 
 $_lang['gtsnotify'] = 'gtsNotify';
+$_lang['gtsnotify_extjs'] = 'gtsNotify';
+
 $_lang['gtsnotify_menu_desc'] = 'Система уведомлений';
 $_lang['gtsnotify_intro_msg'] = 'Вы можете выделять сразу несколько предметов при помощи Shift или Ctrl.';
 

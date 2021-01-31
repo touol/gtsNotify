@@ -1,11 +1,12 @@
 <?php
 
-class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
+class gtsNotifyProviderGetListProcessor extends modObjectGetListProcessor
 {
-    public $objectType = 'gtsNotifyChannel';
-    public $classKey = 'gtsNotifyChannel';
+    public $objectType = 'gtsNotifyProvider';
+    public $classKey = 'gtsNotifyProvider';
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'DESC';
+    public $languageTopics = ['gtsnotify'];
     //public $permission = 'list';
 
 
@@ -57,7 +58,7 @@ class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
         // Edit
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'fa fa-edit',
+            'icon' => 'icon icon-edit',
             'title' => $this->modx->lexicon('gtsnotify_item_update'),
             //'multiple' => $this->modx->lexicon('gtsnotify_items_update'),
             'action' => 'updateItem',
@@ -68,7 +69,7 @@ class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
         if (!$array['active']) {
             $array['actions'][] = [
                 'cls' => '',
-                'icon' => 'fa fa-power-off action-green',
+                'icon' => 'icon icon-power-off action-green',
                 'title' => $this->modx->lexicon('gtsnotify_item_enable'),
                 'multiple' => $this->modx->lexicon('gtsnotify_items_enable'),
                 'action' => 'enableItem',
@@ -78,7 +79,7 @@ class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
         } else {
             $array['actions'][] = [
                 'cls' => '',
-                'icon' => 'fa fa-power-off action-gray',
+                'icon' => 'icon icon-power-off action-gray',
                 'title' => $this->modx->lexicon('gtsnotify_item_disable'),
                 'multiple' => $this->modx->lexicon('gtsnotify_items_disable'),
                 'action' => 'disableItem',
@@ -90,7 +91,7 @@ class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
         // Remove
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'fa fa-trash-o action-red',
+            'icon' => 'icon icon-trash-o action-red',
             'title' => $this->modx->lexicon('gtsnotify_item_remove'),
             'multiple' => $this->modx->lexicon('gtsnotify_items_remove'),
             'action' => 'removeItem',
@@ -103,4 +104,4 @@ class gtsNotifyChannelGetListProcessor extends modObjectGetListProcessor
 
 }
 
-return 'gtsNotifyChannelGetListProcessor';
+return 'gtsNotifyProviderGetListProcessor';
