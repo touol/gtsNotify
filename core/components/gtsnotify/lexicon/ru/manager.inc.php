@@ -2,7 +2,7 @@
 include_once 'setting.inc.php';
 
 $_lang['gtsnotify'] = 'gtsNotify';
-$_lang['gtsnotify_menu_desc'] = 'Вопросы и ответы по сделкам';
+$_lang['gtsnotify_menu_desc'] = 'Система уведомлений';
 $_lang['gtsnotify_intro_msg'] = 'Вы можете выделять сразу несколько предметов при помощи Shift или Ctrl.';
 
 
@@ -28,3 +28,41 @@ $_lang['gtsnotify_inactive'] = 'Выключен';
 ////////////////////////
 $_lang['gtsnotify_grid_search'] = 'Поиск';
 $_lang['gtsnotify_grid_actions'] = 'Действия';
+
+$_lang['gtsnotify_items'] = 'Items';
+$_lang['gtsnotify_item_id'] = 'Id';
+$_lang['gtsnotify_item_name'] = 'Имя';
+$_lang['gtsnotify_item_description'] = 'Описаное';
+$_lang['gtsnotify_item_active'] = 'Активно';
+
+$_lang['gtsnotify_item_create'] = 'Создать';
+$_lang['gtsnotify_item_update'] = 'Редактировать';
+$_lang['gtsnotify_item_enable'] = 'Включить';
+$_lang['gtsnotify_items_enable'] = 'Включить';
+$_lang['gtsnotify_item_disable'] = 'Отключить';
+$_lang['gtsnotify_items_disable'] = 'Отключить';
+$_lang['gtsnotify_item_remove'] = 'Удалить';
+$_lang['gtsnotify_items_remove'] = 'Удалить';
+$_lang['gtsnotify_item_remove_confirm'] = 'Вы действительно хотите удалить эту запись?';
+$_lang['gtsnotify_items_remove_confirm'] = 'Вы действительно хотите удалить эти записи?';
+
+$_lang['gtsnotify_providers'] = 'Провайдеры';
+$_lang['gtsnotify_channels'] = 'Каналы';
+
+$_lang['gtsnotify_provider_class'] = 'PHP класс';
+$_lang['gtsnotify_provider_path'] = 'Путь к PHP классу';
+$_lang['gtsnotify_provider_ws_address'] = 'Адрес сервера';
+$_lang['gtsnotify_provider_secret_key'] = 'secret_key';
+$_lang['gtsnotify_provider_host'] = 'Домен сайта';
+
+$_lang['gtsnotify_channel_icon'] = 'Иконка';
+$_lang['gtsnotify_channel_icon_empty'] = 'Иконка пустого канала';
+$_lang['gtsnotify_channel_tpl'] = 'Чанк';
+$_lang['gtsnotify_channel_email_send'] = 'Отправлять по email';
+$_lang['gtsnotify_channel_email_tpl'] = 'Чанк email';
+$_lang['gtsnotify_channel_email_sleep'] = 'Задержка email для того, чтобы юзерам онлайн не приходили письма';
+$_lang['gtsnotify_channel_hidden'] = 'Скрытый';
+
+
+
+

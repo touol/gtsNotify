@@ -1,4 +1,4 @@
-gtsNotify.window.CreateProvider = function (config) {
+gtsNotify.window.CreateChannel = function (config) {
     config = config || {}
     config.url = gtsNotify.config.connector_url
 
@@ -7,11 +7,11 @@ gtsNotify.window.CreateProvider = function (config) {
         width: 600,
         cls: 'gtsnotify_windows',
         baseParams: {
-            action: 'mgr/provider/create',
+            action: 'mgr/channel/create',
             resource_id: config.resource_id
         }
     })
-    gtsNotify.window.CreateProvider.superclass.constructor.call(this, config)
+    gtsNotify.window.CreateChannel.superclass.constructor.call(this, config)
 
     this.on('success', function (data) {
         if (data.a.result.object) {
@@ -25,7 +25,7 @@ gtsNotify.window.CreateProvider = function (config) {
         }
     }, this)
 }
-Ext.extend(gtsNotify.window.CreateProvider, gtsNotify.window.Default, {
+Ext.extend(gtsNotify.window.CreateChannel, gtsNotify.window.Default, {
 
     getFields: function (config) {
         return [
@@ -39,39 +39,51 @@ Ext.extend(gtsNotify.window.CreateProvider, gtsNotify.window.Default, {
                 allowBlank: false,
             }, {
                 xtype: 'textfield',
-                fieldLabel: _('gtsnotify_provider_class'),
-                name: 'class',
-                id: config.id + '-class',
+                fieldLabel: _('gtsnotify_channel_icon'),
+                name: 'icon',
+                id: config.id + '-icon',
                 anchor: '99%',
                 allowBlank: false,
             }, {
                 xtype: 'textfield',
-                fieldLabel: _('gtsnotify_provider_path'),
-                name: 'path',
-                id: config.id + '-path',
+                fieldLabel: _('gtsnotify_channel_icon_empty'),
+                name: 'icon_empty',
+                id: config.id + '-icon_empty',
                 anchor: '99%',
                 allowBlank: false,
             }, {
                 xtype: 'textfield',
-                fieldLabel: _('gtsnotify_provider_ws_address'),
-                name: 'ws_address',
-                id: config.id + '-ws_address',
+                fieldLabel: _('gtsnotify_channel_tpl'),
+                name: 'tpl',
+                id: config.id + '-tpl',
+                anchor: '99%',
+                allowBlank: false,
+            },  {
+                xtype: 'xcheckbox',
+                boxLabel: _('gtsnotify_channel_email_send'),
+                name: 'email_send',
+                id: config.id + '-email_send',
+                checked: true,
+            }, {
+                xtype: 'textfield',
+                fieldLabel: _('gtsnotify_channel_email_tpl'),
+                name: 'email_tpl',
+                id: config.id + '-email_tpl',
                 anchor: '99%',
                 allowBlank: false,
             }, {
                 xtype: 'textfield',
-                fieldLabel: _('gtsnotify_provider_secret_key'),
-                name: 'secret_key',
-                id: config.id + '-secret_key',
+                fieldLabel: _('gtsnotify_channel_email_sleep'),
+                name: 'email_sleep',
+                id: config.id + '-email_sleep',
                 anchor: '99%',
                 allowBlank: false,
-            }, {
-                xtype: 'textfield',
-                fieldLabel: _('gtsnotify_provider_host'),
-                name: 'host',
-                id: config.id + '-host',
-                anchor: '99%',
-                allowBlank: false,
+            },  {
+                xtype: 'xcheckbox',
+                boxLabel: _('gtsnotify_channel_hidden'),
+                name: 'hidden',
+                id: config.id + '-hidden',
+                checked: true,
             }, {
                 xtype: 'textarea',
                 fieldLabel: _('gtsnotify_item_description'),
@@ -91,19 +103,19 @@ Ext.extend(gtsNotify.window.CreateProvider, gtsNotify.window.Default, {
 
     }
 })
-Ext.reg('gtsnotify-provider-window-create', gtsNotify.window.CreateProvider)
+Ext.reg('gtsnotify-channel-window-create', gtsNotify.window.CreateChannel)
 
-gtsNotify.window.UpdateProvider = function (config) {
+gtsNotify.window.UpdateChannel = function (config) {
     config = config || {}
 
     Ext.applyIf(config, {
         title: _('gtsnotify_item_update'),
         baseParams: {
-            action: 'mgr/provider/update',
+            action: 'mgr/channel/update',
             resource_id: config.resource_id
         },
     })
-    gtsNotify.window.UpdateProvider.superclass.constructor.call(this, config)
+    gtsNotify.window.UpdateChannel.superclass.constructor.call(this, config)
 }
-Ext.extend(gtsNotify.window.UpdateProvider, gtsNotify.window.CreateProvider)
-Ext.reg('gtsnotify-provider-window-update', gtsNotify.window.UpdateProvider)
+Ext.extend(gtsNotify.window.UpdateChannel, gtsNotify.window.CreateChannel)
+Ext.reg('gtsnotify-channel-window-update', gtsNotify.window.UpdateChannel)

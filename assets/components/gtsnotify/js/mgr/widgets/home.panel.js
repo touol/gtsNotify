@@ -19,13 +19,17 @@ gtsNotify.panel.Home = function (config) {
             stateEvents: ['tabchange'],
             getState: function () {return {activeTab: this.items.indexOf(this.getActiveTab())}},
             items: [{
-                title: _('gtsnotify_items'),
+                title: _('gtsnotify_providers'),
                 layout: 'anchor',
                 items: [{
-                    html: _('gtsnotify_intro_msg'),
-                    cls: 'panel-desc',
-                }, {
-                    xtype: 'gtsnotify-grid-items',
+                    xtype: 'gtsnotify-grid-providers',
+                    cls: 'main-wrapper',
+                }]
+            },{
+                title: _('gtsnotify_channels'),
+                layout: 'anchor',
+                items: [{
+                    xtype: 'gtsnotify-grid-channels',
                     cls: 'main-wrapper',
                 }]
             }]
