@@ -70,7 +70,7 @@ foreach($channels as $channel){
 	$purposes = $pdoTools->run();
 	if(count($purposes) > 0){
 		$mail = $modx->getService('mail', 'mail.modPHPMailer');
-		$mail->setHTML(true);
+		
 		$purpose_ids = [];
 		foreach($purposes as $purpose){
 			$purpose_ids[] = $purpose['id'];
@@ -81,6 +81,7 @@ foreach($channels as $channel){
 			$p->save();
 		}
 		foreach($purposes as $purpose){
+			$mail->setHTML(true);
 			$body = $pdoTools->getChunk($channel['email_tpl'],$purpose);
 			
 
