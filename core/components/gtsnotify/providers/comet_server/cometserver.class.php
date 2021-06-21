@@ -83,7 +83,7 @@ class CometServer
             if ($link) {
                 $result = mysqli_query($link, 'INSERT INTO users_auth (id, hash) VALUES ('.$this->modx->user->id.', "'.md5($this->modx->user->password).'")');
                 if(mysqli_errno($link) != 0) {
-                    $modx->log(modX::LOG_LEVEL_ERROR, '[gtsnotify] Comet error #' . mysqli_errno($link). ' ' . mysqli_error($link));
+                    $this->modx->log(modX::LOG_LEVEL_ERROR, '[gtsnotify] Comet error #' . mysqli_errno($link). ' ' . mysqli_error($link));
                 }
             }
             $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], 
@@ -105,7 +105,34 @@ class CometServer
         //     trim($this->modx->getOption('gtsnotify_provider_comet_server_js')),
         // ];
     }
-    
+    public function getStatusOnline($user_id)
+    {
+        if($this->provider){
+            $comet = [
+                'id' => $this->provider->host,
+                'key' => $this->provider->secret_key,
+                'address' => $this->provider->ws_address,
+            ];
+            $link = mysqli_connect($comet['address'], $comet['id'], $comet['key'], 'CometQL_v1');
+            
+            if ($link) {
+                $result = mysqli_query($link, 'SELECT * FROM users_in_pipes WHERE name = "track_online"');
+                    if(mysqli_errno($link) != 0) {
+                        $this->modx->log(modX::LOG_LEVEL_ERROR, '[gtsnotify] Comet error #' . mysqli_errno($link). ' ' . mysqli_error($link));
+                    } else {
+                        $status = false;
+                        while ($row = $result->fetch_row()) {
+                            if ($row[1] == $user_id) {
+                                $status = true;
+                                break;
+                            }
+                        }
+                        return $this->success('',['status'=>$status]);
+                    }
+            }
+        }
+        return $this->error('new_client no provider');
+    }
     public function sendNotyfyUsers($users = array(), $channels, $data = array(),$send_only_channel_count = true){
         if($this->provider){
             $comet = [

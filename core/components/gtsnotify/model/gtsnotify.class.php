@@ -161,7 +161,15 @@ class gtsNotify
     //     }
     //     return $resp;
     // }
-    
+    public function getStatusOnline($user_id)
+    {
+        if($this->provider){
+            $resp = $this->provider->getStatusOnline($user_id);
+        }else{
+            return $this->error('new_client no provider');
+        }
+        return $resp;
+    }
     public function remove_channel_notify_action($data)
     {
         //not use
