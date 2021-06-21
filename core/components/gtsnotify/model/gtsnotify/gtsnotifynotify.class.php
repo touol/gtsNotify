@@ -157,6 +157,7 @@ class gtsNotifyNotify extends xPDOSimpleObject {
         
             foreach($channels as $channel){
                 $content = $pdoTools->getChunk($channel['tpl'], $data);
+                unset($channel['id']);unset($channel['tpl']);
                 $channels0[$channel['name']] = $channel;
             }
         

@@ -89,9 +89,10 @@ class gtsNotify
                     }
 
                     $config_js = preg_replace(array('/^\n/', '/\t{5}/'), '', '
-							gtsNotify = {};
-							gtsNotifyConfig = ' . $this->modx->toJSON($this->config) . ';
-					');
+                            gtsNotify = {};
+                            gtsNotifyProvider = {};
+                            gtsNotifyConfig = ' . $this->modx->toJSON($this->config) . ';
+                    ');
 
 
                     $this->modx->regClientStartupScript("<script type=\"text/javascript\">\n" . $config_js . "\n</script>", true);
@@ -99,24 +100,18 @@ class gtsNotify
 
                         if (!empty($js) && preg_match('/\.js/i', $js)) {
                             $this->modx->regClientScript(preg_replace(array('/^\n/', '/\t{7}/'), '', '
-							<script type="text/javascript">
-								if(typeof jQuery == "undefined") {
-									document.write("<script src=\"' . $this->config['jsUrl'] . 'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
-								}
-							</script>
-							'), true);
+                            <script type="text/javascript">
+                                if(typeof jQuery == "undefined") {
+                                    document.write("<script src=\"' . $this->config['jsUrl'] . 'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
+                                }
+                            </script>
+                            '), true);
                             $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
 
                         }
                     }
                     if($this->provider){
-                        if ($js = $this->provider->getJS()) {
-
-                            if (!empty($js) && preg_match('/\.js/i', $js)) {
-                                $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
-
-                            }
-                        }
+                        $jss = $this->provider->regJS($config);
                     }
 
                 }
@@ -145,27 +140,27 @@ class gtsNotify
                 return $this->error("Метод $action в классе $class не найден!");
         }
     }
-    public function new_client()
-    {
-        /*if(!$provider = $this->modx->getObject("gtsNotifyProvider",['active'=>1]))
-            return $this->error("Не удалось получить провайдера!");
+    // public function new_client()
+    // {
+    //     /*if(!$provider = $this->modx->getObject("gtsNotifyProvider",['active'=>1]))
+    //         return $this->error("Не удалось получить провайдера!");
         
-        if ($providerClass = $this->modx->loadClass($provider->class, MODX_CORE_PATH . $provider->path, false, true)) {
-            $provider = new $providerClass($this->modx, []);
-        }else{
-            return $this->error("Не удалось получить провайдера!");
-        }*/
-        if($this->provider){
-            $resp = $this->provider->new_client();
-        }else{
-            return $this->error('new_client no provider');
-        }
+    //     if ($providerClass = $this->modx->loadClass($provider->class, MODX_CORE_PATH . $provider->path, false, true)) {
+    //         $provider = new $providerClass($this->modx, []);
+    //     }else{
+    //         return $this->error("Не удалось получить провайдера!");
+    //     }*/
+    //     if($this->provider){
+    //         $resp = $this->provider->new_client();
+    //     }else{
+    //         return $this->error('new_client no provider');
+    //     }
         
-        if($resp['success']) {
-            $this->config['ws_id'] = $resp['data']['ws_id'];
-        }
-        return $resp;
-    }
+    //     if($resp['success']) {
+    //         $this->config['ws_id'] = $resp['data']['ws_id'];
+    //     }
+    //     return $resp;
+    // }
     
     public function remove_channel_notify_action($data)
     {
@@ -191,7 +186,7 @@ class gtsNotify
             foreach($purposes as $p){
                 $p->remove();
             }
-            $channels = []; $c = $channel->toArray();
+            $channels = []; $c = ['name'=>$channel->name];//$channel->toArray();
             $c['user_ids'][$user_id]['channel_count'] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                 'active'=>1,
                 'channel_id'=>$channel->id,
@@ -242,7 +237,7 @@ class gtsNotify
                 'channel_id'=>$channel->id,
             ]);
             
-            $channels = []; $c = $channel->toArray();
+            $channels = []; $c = ['name'=>$channel->name];//$channel->toArray();
             $c['user_ids'][$user_id]['channel_count'] = $this->modx->getCount('gtsNotifyNotifyPurpose',[
                 'active'=>1,
                 'channel_id'=>$channel->id,
@@ -658,13 +653,13 @@ class gtsNotify
     }
     public function makePlaceholders($config)
     {
-		$placeholders = [];
-		foreach($config as $k=>$v){
-			if(is_string($v)){
-				$placeholders['pl'][] = "[[+$k]]";
-				$placeholders['vl'][] = $v;
-			}
-		}
-		return $placeholders;
-	}
+        $placeholders = [];
+        foreach($config as $k=>$v){
+            if(is_string($v)){
+                $placeholders['pl'][] = "[[+$k]]";
+                $placeholders['vl'][] = $v;
+            }
+        }
+        return $placeholders;
+    }
 }

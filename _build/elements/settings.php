@@ -21,6 +21,16 @@ return [
       'value' => '[[+jsUrl]]web/gtsnotifyru.js',
       'area' => 'gtsnotify_main',
     ],
+    'vendor_comet_server_js' => [
+      'xtype' => 'textfield',
+      'value' => '[[+jsUrl]]web/vendor/cometserverapi.js',
+      'area' => 'gtsnotify_main',
+    ],
+    'provider_comet_server_js' => [
+      'xtype' => 'textfield',
+      'value' => '[[+jsUrl]]web/comet_server.js',
+      'area' => 'gtsnotify_main',
+    ],
     'notify' => [
       'xtype' => 'textfield',
       'value' => '{

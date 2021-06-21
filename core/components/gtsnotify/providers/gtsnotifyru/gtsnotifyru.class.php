@@ -66,42 +66,24 @@ class gtsNotifyRu
 
     public function reg_client($data)
     {
-        if($ws_client = $this->modx->newObject("gtsNotifyWSClient")){
-            $ws_client->fromArray([
-                'ws_id' => $data['ws_id'],
-                'user_id'=>$this->modx->user->id
-            ]);
-            if($ws_client->save()){
-                return $this->success('',array('ws_id'=>$ws_client->ws_id));
-            } 
-        }
-        /*
         if($ws_client = $this->modx->getObject("gtsNotifyWSClient",['ws_id'=>$data['ws_id']])){
             return $this->success('',array('ws_id'=>$ws_client->ws_id));
         }
-        */
         return $this->error("reg_client error!", $data);
     }
     
     public function new_client()
     {
-        $ws_id = $this->generateCode();
-        return $this->success('',array('ws_id'=>$ws_id));
-        //$this->modx->log(1,"new_client ");
-        /*if($ws_client = $this->modx->newObject("gtsNotifyWSClient")){
+        if($ws_client = $this->modx->newObject("gtsNotifyWSClient")){
             $ws_id = $this->generateCode();
             $ws_client->fromArray([
                 'ws_id' => $ws_id,
                 'user_id'=>$this->modx->user->id
             ]);
-            if($ws_client->save()){
-                return $this->success('',array('ws_id'=>$ws_client->ws_id));
-            } 
+            if($ws_client->save()) return $this->success('',array('ws_id'=>$ws_client->ws_id));
         }
         return $this->error("reg_client error! $ws_id");
-        */
     }
-
     public function getJS()
     {
         return trim($this->modx->getOption('gtsnotify_gtsnotifyru_js'));

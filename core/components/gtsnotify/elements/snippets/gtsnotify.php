@@ -7,12 +7,7 @@ if (!$gtsNotify) {
     $modx->log(1,"not gtsNotify");
     return 'Could not load gtsNotify class!';
 }
-$resp = $gtsNotify->new_client();
 
-if(!$resp['success']) {
-    $modx->log(1,"not gtsNotify->new_client() ".$resp['message']);
-    return 'Not reg client';
-}
 $gtsNotify->initialize($modx->context->key,$scriptProperties);
 // Do your snippet code here. This demo grabs 5 items from our custom table.
 $tpl = $modx->getOption('tpl', $scriptProperties, 'notifys');
