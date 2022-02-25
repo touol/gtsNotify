@@ -104,6 +104,7 @@ if ($transport->xpdo) {
     }
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
+        case xPDOTransport::ACTION_UPGRADE:
             $modx->addPackage('gtsnotify', MODX_CORE_PATH . 'components/gtsnotify/model/');
             // if($provider = $modx->newObject("gtsNotifyProvider")){
             //     $provider->fromArray([
@@ -117,17 +118,22 @@ if ($transport->xpdo) {
             //     ]);
             //     $provider->save();
             // }
-            if($provider = $modx->newObject("gtsNotifyProvider")){
-                $provider->fromArray([
-                    'name'=>'CometServer',
-                    'description'=>'',
-                    'class'=>'CometServer',
-                    'path'=>'components/gtsnotify/providers/comet_server/',
-                    'ws_address'=>'app.comet-server.ru',
-                    'secret_key'=>'',
-                    'active'=>false,
-                ]);
-                $provider->save();
+            if($provider = $modx->getObject("gtsNotifyProvider",['name'=>'gtsNotifyRu'])){
+                $provider->remove();
+            }
+            if(!$provider = $modx->getObject("gtsNotifyProvider",['name'=>'CometServer'])){
+                if($provider = $modx->newObject("gtsNotifyProvider")){
+                    $provider->fromArray([
+                        'name'=>'CometServer',
+                        'description'=>'',
+                        'class'=>'CometServer',
+                        'path'=>'components/gtsnotify/providers/comet_server/',
+                        'ws_address'=>'app.comet-server.ru',
+                        'secret_key'=>'',
+                        'active'=>false,
+                    ]);
+                    $provider->save();
+                }
             }
         break;
     }
