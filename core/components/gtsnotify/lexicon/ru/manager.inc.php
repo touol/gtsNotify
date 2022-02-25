@@ -54,8 +54,8 @@ $_lang['gtsnotify_channels'] = 'Каналы';
 $_lang['gtsnotify_provider_class'] = 'PHP класс';
 $_lang['gtsnotify_provider_path'] = 'Путь к PHP классу';
 $_lang['gtsnotify_provider_ws_address'] = 'Адрес сервера';
-$_lang['gtsnotify_provider_secret_key'] = 'secret_key';
-$_lang['gtsnotify_provider_host'] = 'Домен сайта';
+$_lang['gtsnotify_provider_secret_key'] = 'Приватный ключ';//'secret_key';
+$_lang['gtsnotify_provider_host'] = 'Публичный id';//'Домен сайта';
 
 $_lang['gtsnotify_channel_icon'] = 'Иконка';
 $_lang['gtsnotify_channel_icon_empty'] = 'Иконка пустого канала';
