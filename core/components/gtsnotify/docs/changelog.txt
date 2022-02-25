@@ -1,4 +1,7 @@
 Changelog for gtsNotify.
+2.0.0-beta
+==============
+- Проект адаптирован для https://comet-server.com/.
 
 1.2.3-beta
 ==============

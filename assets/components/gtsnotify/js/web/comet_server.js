@@ -3,7 +3,7 @@
     gtsNotifyProvider.socket;
     
     gtsNotifyProvider.newMessage = function(data){
-        //console.log('gtsNotifyProvider.newMessage',data);
+        console.log('gtsNotifyProvider.newMessage',data);
         document.dispatchEvent(new CustomEvent("gtsnotifyprovider", {
             detail: data.data
           }));
