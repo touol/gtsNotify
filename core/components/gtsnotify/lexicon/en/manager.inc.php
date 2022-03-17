@@ -1,8 +1,7 @@
 <?php
 include_once 'setting.inc.php';
 
-$_lang['gtsnotify'] = 'gtsNotify';
-$_lang['gtsnotify_menu_desc'] = 'A sample Extra to develop from.';
+
 $_lang['gtsnotify_intro_msg'] = 'You can select multiple items by holding Shift or Ctrl button.';
 
 $_lang['gtsnotify_items'] = 'Items';
