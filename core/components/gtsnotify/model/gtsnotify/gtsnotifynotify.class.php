@@ -165,8 +165,11 @@ class gtsNotifyNotify extends xPDOSimpleObject {
             if ($providerClass = $this->xpdo->loadClass($provider->class, MODX_CORE_PATH . $provider->path, false, true)) {
                 $provider = new $providerClass($this->xpdo, []);
             }
+            $resp = $provider->sendNotyfyUsers($users, $channels0, $data, $send_only_channel_count);
+        }else{
+            $this->xpdo->log(1,'gtsNotify. Не найден активный провайдер! Проверьте настройки.');
         }
-        $resp = $provider->sendNotyfyUsers($users, $channels0, $data, $send_only_channel_count);
+        
         return $resp;
     }
 
